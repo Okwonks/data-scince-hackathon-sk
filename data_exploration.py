@@ -12,42 +12,32 @@ def load_data(path):
 
 
 def get_highest_correlated_feature(df):
-    '''Implement your code to return the feature
-    having the highest correlation with the 'target' variable'''
-    
-    return
+    data = pd.get_dummies(df, columns=['cat_feature_1', 'cat_feature_2'], drop_first=True)
+    correlation_matrix = data.corr()
+    target_correlations = correlation_matrix['target'].abs().drop('target')
+    return target_correlations.idxmax()
 
 
 
 def category_with_highest_mean_cat_feature_2(df):
-    '''Implement your code to return the category in 'cat_feature_2'
-    variable which has the highest mean for the 'target' variable'''
-    
-    return
+    target_means = df.groupby('cat_feature_2')['target'].mean()
+    return target_means.max()
 
 
 
 def abs_std_dev_diff_btwn_groups_cat_feature_1(df):
-    '''Implement your code to return the absolute difference in standar deviation
-    of the 'target' variable between the 2 groups present in 'cat_feature_1' '''
-    
-    return
+    std_devs = df.groupby('cat_feature_1')['target'].std()
+    return abs(std_devs.diff().iloc[-1])
 
 
 
 def min_feature_8_for_cat_feature_2(df):
-    '''Implement your code to return the minimum value of 'feature_8'
-    for the group Category_C in the variable 'cat_feature_2' '''
-    
-    return
+    return df[df['cat_feature_2'] == 'Category_C']['feature_8'].min()
 
 
 
 def get_variance_feature_12_for_group(df):
-    '''Implement your code to return the variance of 'feature_12' for the 
-    group where 'cat_feature_2' is Category_A and 'cat_feature_1' is High'''
-    
-    return
+    return df[(df['cat_feature_1'] == 'High') & (df['cat_feature_2'] == 'Category_A')]['feature_12'].var()
 
 
 
