@@ -25,14 +25,14 @@ def load_model(model_path):
     
     
 def preprocessing(df):
-    '''Write your code to preprocess the dataframe to generate your features to be passed to the model and return the preprocessed dataframe'''
+    cat_features = ['cat_feature_1', 'cat_feature_2']
+    df_processed = pd.get_dummies(df, columns=cat_features, drop_first=True)
 
     return df_processed
     
 
 def inference(df_processed, model):
-    '''Write your code to pass the preprocessed dataframe to your model and generate predictions from the model and return the predictions'''
-
+    preds = model.predict(df_processed)
     return preds
     
     
